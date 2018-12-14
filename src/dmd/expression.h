@@ -1272,3 +1272,13 @@ class ObjcClassReferenceExp : public Expression
 
     void accept(Visitor *v) { v->visit(this); }
 };
+
+/****************************************************************/
+
+class NamedArgumentExp : public UnaExp
+{
+    Identifier* argumentName;
+
+    Expression* syntaxCopy();
+    void accept(Visitor* v) { v->visit(this); }
+};

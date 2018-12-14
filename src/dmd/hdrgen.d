@@ -3248,6 +3248,13 @@ public:
             s.accept(this);
         }
     }
+
+    override void visit(NamedArgumentExp e)
+    {
+        buf.writestring(e.namedArgument.toChars());
+        buf.writestring(": ");
+        e.e1.accept(this);
+    }
 }
 
 void toCBuffer(Statement s, OutBuffer* buf, HdrGenState* hgs)

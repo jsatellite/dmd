@@ -4675,6 +4675,15 @@ extern (C++) final class TypeFunction : TypeNext
                     //printf("match %d\n", m);
                 }
 
+                if (arg.op == TOK.namedArgument)
+                {
+                    auto namedArg = cast(NamedArgumentExp)arg;
+                    if (p.ident.toChars()[0] != '_' && namedArg.argumentName != p.ident)
+                        goto Nomatch;
+                    else
+                        arg = namedArg.e1;
+                }
+
                 // Non-lvalues do not match ref or out parameters
                 if (p.storageClass & (STC.ref_ | STC.out_))
                 {

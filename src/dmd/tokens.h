@@ -180,6 +180,8 @@ enum TOK
         TOKshowctfecontext,
 
         TOKobjc_class_reference,
+        
+        TOKnamedargument,
 
         TOKMAX
 };

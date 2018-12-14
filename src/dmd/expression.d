@@ -6529,3 +6529,27 @@ extern (C++) final class ObjcClassReferenceExp : Expression
         v.visit(this);
     }
 }
+
+/***********************************************************
+ */
+extern (C++) final class NamedArgumentExp : UnaExp
+{
+    Identifier argumentName;
+
+    extern (D) this(const ref Loc loc, Identifier argumentName, Expression e)
+    {
+        super(loc, TOK.namedArgument, __traits(classInstanceSize, NamedArgumentExp), e);
+        this.argumentName = argumentName;
+    }
+
+    override Expression syntaxCopy()
+    {
+        return new NamedArgumentExp(loc, argumentName, e1.syntaxCopy());
+    }
+
+    override void accept(Visitor v)
+    {
+        v.visit(this);
+    }
+
+}

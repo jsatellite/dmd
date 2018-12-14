@@ -8891,7 +8891,19 @@ final class Parser(AST) : Lexer
             nextToken();
             while (token.value != endtok && token.value != TOK.endOfFile)
             {
+                Identifier argumentName;
+                if (token.value == TOK.identifier && peek(&token).value == TOK.colon)
+                {
+                    argumentName = token.ident;
+                    nextToken(); // skip identifier
+                    nextToken(); // skip colon
+                }
+
                 auto arg = parseAssignExp();
+
+                if (argumentName)
+                    arg = new AST.NamedArgumentExp(arg.loc, argumentName, arg);
+                    
                 arguments.push(arg);
                 if (token.value == endtok)
                     break;

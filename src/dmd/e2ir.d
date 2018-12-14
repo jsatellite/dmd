@@ -206,6 +206,9 @@ private elem *callfunc(const ref Loc loc,
 
         foreach (const i, arg; *arguments)
         {
+            if (arg.op == TOK.namedArgument)
+                arg = (cast(NamedArgumentExp)arg).e1;
+
             elem *ea = toElem(arg, irs);
 
             //printf("\targ[%d]: %s\n", i, arg.toChars());
@@ -5411,6 +5414,11 @@ elem *toElem(Expression e, IRState *irs)
         override void visit(ObjcClassReferenceExp e)
         {
             result = objc.toElem(e);
+        }
+
+        override void visit(NamedArgumentExp e)
+        {
+            result = toElem(e.e1, irs);
         }
 
         /*****************************************************/

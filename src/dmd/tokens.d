@@ -287,6 +287,8 @@ enum TOK : int
 
     objcClassReference,
 
+    namedArgument,
+
     max_,
 }
 
@@ -697,6 +699,8 @@ extern (C++) struct Token
         TOK.showCtfeContext : "showCtfeContext",
 
         TOK.objcClassReference: "class",
+
+        TOK.namedArgument: "namedargument",
     ];
 
     static assert(() {

@@ -630,6 +630,7 @@ public:
     virtual void visit(ClassReferenceExp *e) { visit((Expression *)e); }
     virtual void visit(VoidInitExp *e) { visit((Expression *)e); }
     virtual void visit(ThrownExceptionExp *e) { visit((Expression *)e); }
+    virtual void visit(NamedArgumentExp *e) { visit((UnaExp *)e); }
 };
 
 class StoppableVisitor : public Visitor
