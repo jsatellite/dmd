@@ -3251,7 +3251,7 @@ public:
 
     override void visit(NamedArgumentExp e)
     {
-        buf.writestring(e.namedArgument.toChars());
+        buf.writestring(e.argumentName.toChars());
         buf.writestring(": ");
         e.e1.accept(this);
     }
