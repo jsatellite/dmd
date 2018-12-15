@@ -10520,7 +10520,13 @@ private extern (C++) final class ExpressionSemanticVisitor : Visitor
 
     override void visit(NamedArgumentExp e)
     {
-        e.e1.accept(this);
+        if (e.type) {
+            result = e;
+            return;
+        }
+
+        e.e1 = e.e1.expressionSemantic(sc);
+        e.e1 = resolveProperties(sc, e.e1);
         e.type = e.e1.type;
         result = e;
     }
