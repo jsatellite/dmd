@@ -4677,11 +4677,19 @@ extern (C++) final class TypeFunction : TypeNext
 
                 if (arg.op == TOK.namedArgument)
                 {
-                    auto namedArg = cast(NamedArgumentExp)arg;
-                    if (p.ident.toChars()[0] != '_' && namedArg.argumentName != p.ident)
+                    auto narg = cast(NamedArgumentExp)arg;
+                    if (p.ident.toChars()[0] != '_' && narg.argumentName != p.ident)
+                    {
+                        if (pMessage)
+                        {
+                            OutBuffer buf;
+                            buf.printf("unexpected parameter named `%s`", narg.argumentName.toChars());
+                            *pMessage = buf.extractString();
+                        }
                         goto Nomatch;
+                    }
                     else
-                        arg = namedArg.e1;
+                        arg = narg.e1;
                 }
 
                 // Non-lvalues do not match ref or out parameters
